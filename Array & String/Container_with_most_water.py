@@ -1,3 +1,4 @@
+# https://leetcode.com/problems/container-with-most-water/submissions/1975155273/?envType=problem-list-v2&envId=array
 # 11. Container With Most Water
 # Solved
 # Medium
@@ -25,3 +26,24 @@
 # Input: height = [1,1]
 # Output: 1
 
+
+from typing import List
+
+
+class Solution:
+    def maxArea(self, height: List[int]) -> int:
+        max_areas , curr_area , left = 0,0,0
+        right = len(height)-1
+
+        while left < right:
+            curr_area = min(height[left],height[right]) * (right-left)
+            if height[left]< height[right]:
+                left +=1
+            else: 
+                right -=1
+            max_areas = max(curr_area,max_areas)
+        return max_areas
+    
+
+height = [1,8,6,2,5,4,8,3,7]
+print(Solution().maxArea(height))
