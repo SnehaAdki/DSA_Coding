@@ -58,16 +58,24 @@
 # | null                   |
 # +------------------------+
 
+
 import pandas as pd
 
-def nth_highest_salary(employee: pd.DataFrame, N: int):
-    breakpoint()
-    employee.groupby('salary').cumcount() + 1
+def nth_highest_salary(employee: pd.DataFrame, N: int) -> pd.DataFrame:
+    unique_sal = employee['salary'].drop_duplicates()
+
+    sor_sal = unique_sal.sort_values(ascending=False)
+
+    if N > len(sor_sal) or N <= 0: 
+        return pd.DataFrame({f'getNthHighestSalary({N})' :[None]})
+    
+    nth_index = sor_sal.iloc[N-1]
+    return pd.DataFrame({f'getNthHighestSalary({N})' :[nth_index]})
 
 
-
-emp = pd.DataFrame({
-    "id" : [1,2,3],
+employee = pd.DataFrame({
+    "id":[1,2,3],
     "salary" : [100,200,300]
 })
-nth_highest_salary(emp,2)
+
+print(nth_highest_salary(employee,1))
